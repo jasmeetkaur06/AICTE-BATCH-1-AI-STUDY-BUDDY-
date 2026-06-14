@@ -24,7 +24,7 @@ An AI-powered learning assistant built for the **EduNet IBM SkillsBuild AICTE In
 4. Enter your Groq API key in the sidebar
 
 ## 🔗 Links
-- **Live App:** [Click here](YOUR_STREAMLIT_URL_HERE)
+- **Live App:** [[Click here](YOUR_STREAMLIT_URL_HERE)](https://ai-study-buddy-aicte.streamlit.app/)
 - **Internship:** EduNet IBM SkillsBuild AICTE
 
 ## 👩‍💻 Developed By
