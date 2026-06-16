@@ -1,8 +1,9 @@
 import streamlit as st
 from groq import Groq
 
-def call_ai(prompt, api_key):
+def call_ai(prompt):
     try:
+        api_key = st.secrets.get("GROQ_API_KEY", "")
         client = Groq(api_key=api_key)
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
@@ -17,9 +18,6 @@ st.set_page_config(page_title="AI Study Buddy", page_icon="📚", layout="center
 with st.sidebar:
     st.title("📚 AI Study Buddy")
     st.markdown("---")
-    api_key = st.text_input("Enter your Groq API Key", type="password", placeholder="gsk_...")
-    st.caption("Get free key at console.groq.com")
-    st.markdown("---")
     st.markdown("**Features:**")
     st.markdown("- Explain any topic simply")
     st.markdown("- Summarize notes")
@@ -31,9 +29,6 @@ with st.sidebar:
 st.title("AI Study Buddy")
 st.markdown("Your personal AI-powered learning assistant powered by **Groq + LLaMA 3.1**")
 st.divider()
-
-if not api_key:
-    api_key = ""
 
 tab1, tab2, tab3, tab4 = st.tabs(["Explain Topic", "Summarize Notes", "Generate Quiz", "Flashcards"])
 
@@ -47,13 +42,11 @@ with tab1:
         else:
             with st.spinner("Generating explanation..."):
                 prompt = f"""Explain "{topic}" at level: {level}.
-Use this structure:
 1. Simple Definition (2-3 sentences)
 2. How It Works (with a simple analogy)
 3. Key Points (4-5 bullet points)
-4. Real-life Example (1 short example)
-Keep it student-friendly and engaging."""
-                st.markdown(call_ai(prompt, api_key))
+4. Real-life Example (1 short example)"""
+                st.markdown(call_ai(prompt))
 
 with tab2:
     st.subheader("Summarize your study notes")
@@ -74,7 +67,7 @@ Style: {style} | Length: {length}
 Notes:
 {notes}
 Make it clear and useful for exam revision."""
-                st.markdown(call_ai(prompt, api_key))
+                st.markdown(call_ai(prompt))
 
 with tab3:
     st.subheader("Test your knowledge with a quiz")
@@ -86,7 +79,7 @@ with tab3:
         else:
             with st.spinner("Creating 5 quiz questions..."):
                 prompt = f"""Create a quiz on "{quiz_topic}", difficulty: {difficulty}.
-Generate exactly 5 MCQs using this format:
+Generate exactly 5 MCQs:
 
 Q1. [Question]
 A) [Option]
@@ -97,7 +90,7 @@ Answer: [Letter]
 Explanation: [One sentence]
 
 Repeat for Q2 to Q5."""
-                st.markdown(call_ai(prompt, api_key))
+                st.markdown(call_ai(prompt))
                 st.success("Quiz ready!")
 
 with tab4:
@@ -110,12 +103,11 @@ with tab4:
         else:
             with st.spinner("Creating flashcards..."):
                 prompt = f"""Create {num_cards} flashcards on "{flash_topic}".
-Format each like this:
 
 Card [number]
 Q: [Question]
 A: [Answer in 1-3 sentences]
 
 Leave a blank line between cards."""
-                st.markdown(call_ai(prompt, api_key))
+                st.markdown(call_ai(prompt))
                 st.success(f"{num_cards} flashcards ready!")
