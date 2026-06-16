@@ -21,10 +21,12 @@ An AI-powered learning assistant built for the **EduNet IBM SkillsBuild AICTE In
    pip install streamlit groq
 3. Run the app:
    streamlit run app.py
-4. Enter your Groq API key in the sidebar
+4. Add your Groq API key in .streamlit/secrets.toml file:
+   GROQ_API_KEY = "gsk_your_key_here"
 
 ## 🔗 Links
-- **Live App:** (https://ai-study-buddy-aicte.streamlit.app/)
+- **Live App:** https://ai-study-buddy-aicte.streamlit.app/
+(No API key needed — just open and use!)
 - **Internship:** EduNet IBM SkillsBuild AICTE
 
 ## 👩‍💻 Developed By
